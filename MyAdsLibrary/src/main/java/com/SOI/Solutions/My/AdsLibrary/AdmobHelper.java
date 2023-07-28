@@ -296,7 +296,8 @@ public class AdmobHelper {
         if (interstitialAd1!=null){
 
             activity.startActivity(new Intent(activity,IntersitialActivity.class)
-                    .putExtra("intent_data", intent));
+                    .putExtra("intent_data", intent)
+                    .putExtra("from", "admob"));
         }
         else {
             Log.e("Intersiital Ad showing","intersital ad null");

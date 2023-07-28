@@ -13,6 +13,9 @@
         android:theme="@style/Theme.MyAdsLIbrary"
         tools:targetApi="31">
         <activity
+            android:name=".SecondActivity"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
@@ -22,12 +25,12 @@
             </intent-filter>
         </activity>
 
-
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
             android:value="ca-app-pub-3940256099942544~3347511713" />
-        <meta-data android:name="applovin.sdk.key"
-            android:value="uxVPpX_zhuv7utrPs0goKJ7dcek3soEV9OzxbxdEzOzxD-9lTC6tuTvfCWVZs2WIEQl0m1AXS3B-H7XwxC6Oa2"/>
+        <meta-data
+            android:name="applovin.sdk.key"
+            android:value="uxVPpX_zhuv7utrPs0goKJ7dcek3soEV9OzxbxdEzOzxD-9lTC6tuTvfCWVZs2WIEQl0m1AXS3B-H7XwxC6Oa2" />
     </application>
 
 </manifest>

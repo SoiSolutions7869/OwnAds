@@ -23,12 +23,14 @@ import java.util.concurrent.TimeUnit;
 
 public class IntersitialActivity extends AppCompatActivity {
     String TAG="Intersital Showing";
+    String from;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_intersitial);
         // Retrieve the intent passed from Activity1
         Intent receivedIntent = getIntent();
+        from=getIntent().getStringExtra("from");
         if (receivedIntent != null) {
             // Retrieve the Intent for Activity2
             Intent intentForActivity2 = receivedIntent.getParcelableExtra("intent_data");
@@ -39,7 +41,12 @@ public class IntersitialActivity extends AppCompatActivity {
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        showApplovinIntersitalAd(intentForActivity2);
+                        if (from.equals("admob")){
+                            showIntersiitalAd(intentForActivity2);
+                        }
+                        else {
+                            showApplovinIntersitalAd(intentForActivity2);
+                        }
                         finish();
                     }
                 },1000);
