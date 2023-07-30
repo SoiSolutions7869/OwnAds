@@ -1,6 +1,7 @@
 package com.SOI.Solutions.My.AdsLibrary;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -24,8 +25,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        MyAdsHelper.iniSDkAdmob(this);
+        MyAdsHelper.iniSDkAdmob(this, getResources().getString(R.string.admob_intersitial));
 
-        MyAdsHelper.loadAdmobAdaptiveBannerAd(this);
+        MyAdsHelper.loadAdmobAdaptiveBannerAd(this, getResources().getString(R.string.admob_banner));
     }
 }

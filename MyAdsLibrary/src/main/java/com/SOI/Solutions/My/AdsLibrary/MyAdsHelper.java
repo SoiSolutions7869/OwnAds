@@ -50,7 +50,7 @@ import java.util.List;
 
 public class MyAdsHelper {
     public static ShimmerFrameLayout shimmerlayout,nativeshimmer;
-    public static String TAG="Admob Helper";
+    public static String TAG="Ads Helper";
     public static NativeAd nativeAd1;
     public static InterstitialAd interstitialAd1;
     public static MaxInterstitialAd interstitialAd;
@@ -62,28 +62,28 @@ public class MyAdsHelper {
     public static MaxNativeAdLoader nativeAdLoader;
 
     public static MaxAd nativeAd;
-    public static void iniSDkAdmob(Activity activity) {
+    public static void iniSDkAdmob(Activity activity,String intersitai_id) {
 
         MobileAds.initialize(activity, new OnInitializationCompleteListener() {
             @Override
             public void onInitializationComplete(
                     @NonNull InitializationStatus initializationStatus) {
                 Log.e(TAG, "admob sdk initialized success");
-                loadAdmobInterstitialAd(activity);
+                loadAdmobInterstitialAd(activity,intersitai_id);
             }
         });
 
     }
 
 
-    public static void loadAdmobAdaptiveBannerAd(Activity activity) {
+    public static void loadAdmobAdaptiveBannerAd(Activity activity,String banner_id) {
 
         shimmerlayout=activity.findViewById(R.id.shimmerlayout);
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
                 AdView adView = new AdView(activity);
-                adView.setAdUnitId("ca-app-pub-3940256099942544/6300978111");
+                adView.setAdUnitId(banner_id);
                 FrameLayout bannerLayout = activity.findViewById(R.id.framelayout);
                 bannerLayout.addView(adView);
                 AdRequest adRequest = new AdRequest.Builder().build();
@@ -206,14 +206,14 @@ public class MyAdsHelper {
     }
 
     //... load native ad
-    public static void loadAndShowAdmobNativeAd(Activity activity) {
+    public static void loadAndShowAdmobNativeAd(Activity activity,String native_id) {
 
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
                 nativeshimmer=activity.findViewById(R.id.nativeshimmer);
                 AdLoader adLoader = new AdLoader.Builder(activity,
-                        "ca-app-pub-3940256099942544/2247696110")
+                        native_id)
                         .forNativeAd(new NativeAd.OnNativeAdLoadedListener() {
                             @Override
                             public void onNativeAdLoaded(@NonNull NativeAd
@@ -264,14 +264,14 @@ public class MyAdsHelper {
 
     }
 
-    public static void loadAdmobInterstitialAd(Activity activity) {
+    public static void loadAdmobInterstitialAd(Activity activity,String intersitial_id) {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
 
                 AdRequest adRequest = new AdRequest.Builder().build();
 
-                InterstitialAd.load(activity,"ca-app-pub-3940256099942544/1033173712", adRequest,
+                InterstitialAd.load(activity,intersitial_id, adRequest,
                         new InterstitialAdLoadCallback() {
                             @Override
                             public void onAdLoaded(@NonNull InterstitialAd interstitialAd) {
@@ -306,7 +306,7 @@ public class MyAdsHelper {
 
     }
 
-    public static void inilizeApplovinSdk(Activity activity){
+    public static void inilizeApplovinSdk(Activity activity,String intersital_id){
         AppLovinSdk.getInstance(activity ).setMediationProvider( "max" );
         AppLovinSdk.getInstance(activity).showMediationDebugger();
         AppLovinSdk.initializeSdk( activity, new AppLovinSdk.SdkInitializationListener()
@@ -315,27 +315,27 @@ public class MyAdsHelper {
             public void onSdkInitialized(final AppLovinSdkConfiguration configuration)
             {
                 Log.e(TAG,"Sdk Intilized Successfully");
-                loadApplovinintersitalad(activity);
+                loadApplovinintersitalad(activity,intersital_id);
             }
         } );
 
     }
 
-    public static void loadApplovinintersitalad(Activity activity){
+    public static void loadApplovinintersitalad(Activity activity,String applovin_intersiital){
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                interstitialAd = new MaxInterstitialAd( activity.getResources().getString(R.string.interstitial_id), activity );
+                interstitialAd = new MaxInterstitialAd( applovin_intersiital, activity );
             }
         },1000);
 
     }
 
-    public static void loadandshowapplovinbanner(Activity activity){
+    public static void loadandshowapplovinbanner(Activity activity,String banner_id){
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                adView = new MaxAdView( activity.getResources().getString(R.string.max_banner), activity );
+                adView = new MaxAdView( banner_id, activity );
                 FrameLayout    frameLayout=activity.findViewById(R.id.framelayout);
                 shimmerlayout=activity.findViewById(R.id.shimmerlayout);
                 final boolean isTablet = AppLovinSdkUtils.isTablet( activity );
@@ -406,7 +406,7 @@ public class MyAdsHelper {
 
     }
 
-    public static void loadandshowapplovinnative(Activity activity){
+    public static void loadandshowapplovinnative(Activity activity,String applovin_native){
         nativeAdLayout = activity.findViewById(R.id.nativecontainer);
         nativeshimmer=activity.findViewById(R.id.nativeshimmer);
         MaxNativeAdViewBinder binder = new MaxNativeAdViewBinder.Builder( R.layout.native_custom_ad_view )
@@ -421,7 +421,7 @@ public class MyAdsHelper {
                 .build();
         nativeAdView = new MaxNativeAdView( binder, activity );
 
-        nativeAdLoader = new MaxNativeAdLoader( activity.getResources().getString(R.string.native_id), activity );
+        nativeAdLoader = new MaxNativeAdLoader(applovin_native , activity );
 
         nativeAdLoader.setNativeAdListener( new MaxNativeAdListener()
         {

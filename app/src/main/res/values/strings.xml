@@ -1,3 +1,20 @@
 <resources>
     <string name="app_name">MyAdsLIbrary</string>
+
+
+    //..........Max ad ids
+    <string name="max_banner" translatable="false">3373d0dff91dfba8</string>
+    <!--    <string name="max_banner" translatable="false">b20ee41de3fd4d1e</string>-->
+    <string name="interstitial_id" translatable="false">c87d4cd1c1e2cdb1</string>
+    <!--    <string name="interstitial_id" translatable="false">3bdcf9eb98e02796</string>-->
+    <string name="native_id" translatable="false">fc1c2a8c64518078</string>
+
+
+
+    <string name="admob_native" translatable="false">ca-app-pub-3940256099942544/2247696110</string>
+    <string name="admob_banner" translatable="false">ca-app-pub-3940256099942544/6300978111</string>
+    <string name="admob_intersitial" translatable="false">ca-app-pub-3940256099942544/1033173712</string>
+
+
+
 </resources>
