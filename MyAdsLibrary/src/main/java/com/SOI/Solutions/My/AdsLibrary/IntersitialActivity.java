@@ -2,9 +2,9 @@ package com.SOI.Solutions.My.AdsLibrary;
 
 
 
-import static com.SOI.Solutions.My.AdsLibrary.AdmobHelper.interstitialAd;
-import static com.SOI.Solutions.My.AdsLibrary.AdmobHelper.interstitialAd1;
-import static com.SOI.Solutions.My.AdsLibrary.AdmobHelper.retryAttempt;
+import static com.SOI.Solutions.My.AdsLibrary.MyAdsHelper.interstitialAd;
+import static com.SOI.Solutions.My.AdsLibrary.MyAdsHelper.interstitialAd1;
+import static com.SOI.Solutions.My.AdsLibrary.MyAdsHelper.retryAttempt;
 
 import android.content.Intent;
 import android.os.Bundle;

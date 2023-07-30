@@ -48,7 +48,7 @@ import com.google.android.gms.ads.nativead.NativeAdView;
 
 import java.util.List;
 
-public class AdmobHelper {
+public class MyAdsHelper {
     public static ShimmerFrameLayout shimmerlayout,nativeshimmer;
     public static String TAG="Admob Helper";
     public static NativeAd nativeAd1;
@@ -300,6 +300,7 @@ public class AdmobHelper {
                     .putExtra("from", "admob"));
         }
         else {
+            activity.startActivity(intent);
             Log.e("Intersiital Ad showing","intersital ad null");
         }
 

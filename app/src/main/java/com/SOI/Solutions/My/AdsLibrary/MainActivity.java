@@ -20,12 +20,12 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent= new Intent(MainActivity.this,SecondActivity.class);
-                AdmobHelper.showAdmobIntersiitaAd(MainActivity.this,intent);
+                MyAdsHelper.showAdmobIntersiitaAd(MainActivity.this,intent);
             }
         });
 
-        AdmobHelper.iniSDkAdmob(this);
+        MyAdsHelper.iniSDkAdmob(this);
 
-        AdmobHelper.loadAdmobAdaptiveBannerAd(this);
+        MyAdsHelper.loadAdmobAdaptiveBannerAd(this);
     }
 }
