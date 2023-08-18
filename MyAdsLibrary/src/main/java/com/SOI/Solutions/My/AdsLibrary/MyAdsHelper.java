@@ -306,8 +306,10 @@ public class MyAdsHelper {
 
     }
 
-    public static void inilizeApplovinSdk(Activity activity,String intersital_id){
-        AppLovinSdk.getInstance(activity ).setMediationProvider( "max" );
+    public static void inilizeApplovinSdk(Activity activity,String intersital_id,Boolean mediationdebugger){
+        if (mediationdebugger) {
+            AppLovinSdk.getInstance(activity).setMediationProvider("max");
+        }
         AppLovinSdk.getInstance(activity).showMediationDebugger();
         AppLovinSdk.initializeSdk( activity, new AppLovinSdk.SdkInitializationListener()
         {
