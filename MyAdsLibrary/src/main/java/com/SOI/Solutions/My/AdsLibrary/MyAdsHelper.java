@@ -18,6 +18,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.applovin.mediation.MaxAd;
+import com.applovin.mediation.MaxAdListener;
 import com.applovin.mediation.MaxAdViewAdListener;
 import com.applovin.mediation.MaxError;
 import com.applovin.mediation.MaxNetworkResponseInfo;
@@ -308,15 +309,16 @@ public class MyAdsHelper {
 
     public static void inilizeApplovinSdk(Activity activity,String intersital_id,Boolean mediationdebugger){
         if (mediationdebugger) {
-            AppLovinSdk.getInstance(activity).setMediationProvider("max");
+            AppLovinSdk.getInstance(activity).showMediationDebugger();
         }
-        AppLovinSdk.getInstance(activity).showMediationDebugger();
+        AppLovinSdk.getInstance(activity).setMediationProvider("max");
+
         AppLovinSdk.initializeSdk( activity, new AppLovinSdk.SdkInitializationListener()
         {
             @Override
             public void onSdkInitialized(final AppLovinSdkConfiguration configuration)
             {
-                Log.e(TAG,"Sdk Intilized Successfully");
+                Log.e(TAG,"AppLovin Sdk Intilized Successfully");
                 loadApplovinintersitalad(activity,intersital_id);
             }
         } );
@@ -328,6 +330,40 @@ public class MyAdsHelper {
             @Override
             public void run() {
                 interstitialAd = new MaxInterstitialAd( applovin_intersiital, activity );
+                interstitialAd.setListener(new MaxAdListener() {
+                    @Override
+                    public void onAdLoaded(MaxAd maxAd) {
+                        Log.e(TAG,"Intersiital ad: On laoded successfully");
+                    }
+
+                    @Override
+                    public void onAdDisplayed(MaxAd maxAd) {
+                        Log.e(TAG,"Intersiital ad: On Displayed successfully");
+                    }
+
+                    @Override
+                    public void onAdHidden(MaxAd maxAd) {
+                        Log.e(TAG,"Intersiital ad: On Hidden successfully");
+                    }
+
+                    @Override
+                    public void onAdClicked(MaxAd maxAd) {
+                        Log.e(TAG,"Intersiital ad: On Ad Clicked");
+                    }
+
+                    @Override
+                    public void onAdLoadFailed(String s, MaxError maxError) {
+                        Log.e(TAG,"Intersiital ad: On loaded Failed");
+                        Log.e(TAG,"Intersiital ad: error code: "+maxError.getCode());
+                        Log.e(TAG,"Intersiital ad: error message: "+maxError.getMessage());
+                    }
+
+                    @Override
+                    public void onAdDisplayFailed(MaxAd maxAd, MaxError maxError) {
+                        Log.e(TAG,"Intersiital ad: On Dispalayer Failed");
+                    }
+                });
+                interstitialAd.loadAd();
             }
         },1000);
 
@@ -473,7 +509,7 @@ public class MyAdsHelper {
 
     }
 
-    public static void showApplovinIntersiitaAd(Activity activity, Intent intent){
+    public static void showApplovinIntersiitaAd(Activity activity,String adunit, Intent intent){
         if (interstitialAd!=null){
 
             if (interstitialAd.isReady()) {
@@ -487,6 +523,7 @@ public class MyAdsHelper {
             }
         }
         else {
+            loadApplovinintersitalad(activity,adunit);
             activity.startActivity(intent);
             Log.e(TAG,"intersital ad null");
         }
