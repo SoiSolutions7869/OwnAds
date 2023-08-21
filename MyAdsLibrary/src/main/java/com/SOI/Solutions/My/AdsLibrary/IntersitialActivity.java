@@ -72,7 +72,9 @@ public class IntersitialActivity extends AppCompatActivity {
                 // Set the ad reference to null so you don't show the ad a second time.
                 Log.d(TAG, "Ad dismissed fullscreen content.");
                 interstitialAd1 = null;
-                startActivity(intent);
+                if (intent!=null) {
+                    startActivity(intent);
+                }
             }
 
             @Override
@@ -80,7 +82,9 @@ public class IntersitialActivity extends AppCompatActivity {
                 // Called when ad fails to show.
                 Log.e(TAG, "Ad failed to show fullscreen content.");
                 interstitialAd1 = null;
-                startActivity(intent);
+                if (intent!=null) {
+                    startActivity(intent);
+                }
             }
 
             @Override

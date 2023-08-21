@@ -21,12 +21,12 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent= new Intent(MainActivity.this,SecondActivity.class);
-                MyAdsHelper.showApplovinIntersiitaAd(MainActivity.this,getString(R.string.interstitial_id),intent);
+                MyAdsHelper.showAdmobIntersiitaAd(MainActivity.this,null,getString(R.string.admob_intersitial));
             }
         });
 
-        MyAdsHelper.inilizeApplovinSdk(this, getResources().getString(R.string.interstitial_id),true);
+        MyAdsHelper.iniSDkAdmobWithFacebook(this, getResources().getString(R.string.admob_intersitial));
 
-        MyAdsHelper.loadandshowapplovinnative(this, getResources().getString(R.string.native_id));
+        MyAdsHelper.loadAdmobAdaptiveBannerAd(this, getResources().getString(R.string.admob_banner));
     }
 }

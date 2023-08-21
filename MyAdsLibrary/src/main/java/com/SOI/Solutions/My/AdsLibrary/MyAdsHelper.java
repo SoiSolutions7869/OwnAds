@@ -308,16 +308,18 @@ public class MyAdsHelper {
         }, 1000);
     }
 
-    public static void showAdmobIntersiitaAd(Activity activity, Intent intent){
+    public static void showAdmobIntersiitaAd(Activity activity, Intent intent,String intersitial_id){
         if (interstitialAd1!=null){
-
             activity.startActivity(new Intent(activity,IntersitialActivity.class)
                     .putExtra("intent_data", intent)
                     .putExtra("from", "admob"));
         }
         else {
-            activity.startActivity(intent);
+            if (intent!=null) {
+                activity.startActivity(intent);
+            }
             Log.e("Intersiital Ad showing","intersital ad null");
+            loadAdmobInterstitialAd(activity,intersitial_id);
         }
 
     }
