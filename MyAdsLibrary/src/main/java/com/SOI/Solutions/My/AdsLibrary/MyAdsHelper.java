@@ -31,6 +31,7 @@ import com.applovin.mediation.nativeAds.MaxNativeAdViewBinder;
 import com.applovin.sdk.AppLovinSdk;
 import com.applovin.sdk.AppLovinSdkConfiguration;
 import com.applovin.sdk.AppLovinSdkUtils;
+import com.facebook.ads.AudienceNetworkAds;
 import com.facebook.shimmer.ShimmerFrameLayout;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdLoader;
@@ -64,6 +65,20 @@ public class MyAdsHelper {
 
     public static MaxAd nativeAd;
     public static void iniSDkAdmob(Activity activity,String intersitai_id) {
+
+        MobileAds.initialize(activity, new OnInitializationCompleteListener() {
+            @Override
+            public void onInitializationComplete(
+                    @NonNull InitializationStatus initializationStatus) {
+                Log.e(TAG, "admob sdk initialized success");
+                loadAdmobInterstitialAd(activity,intersitai_id);
+            }
+        });
+
+    }
+
+    public static void iniSDkAdmobWithFacebook(Activity activity,String intersitai_id) {
+        AudienceNetworkAds.initialize(activity);
 
         MobileAds.initialize(activity, new OnInitializationCompleteListener() {
             @Override
@@ -324,6 +339,25 @@ public class MyAdsHelper {
         } );
 
     }
+    public static void inilizeApplovinSdkwithFacebook(Activity activity,String intersital_id,Boolean mediationdebugger){
+        if (mediationdebugger) {
+            AppLovinSdk.getInstance(activity).showMediationDebugger();
+        }
+        AppLovinSdk.getInstance(activity).setMediationProvider("max");
+        AudienceNetworkAds.initialize(activity);
+        AppLovinSdk.initializeSdk( activity, new AppLovinSdk.SdkInitializationListener()
+        {
+            @Override
+            public void onSdkInitialized(final AppLovinSdkConfiguration configuration)
+            {
+                Log.e(TAG,"AppLovin Sdk Intilized Successfully");
+                loadApplovinintersitalad(activity,intersital_id);
+            }
+        } );
+
+    }
+
+
 
     public static void loadApplovinintersitalad(Activity activity,String applovin_intersiital){
         new Handler().postDelayed(new Runnable() {

@@ -38,4 +38,8 @@ dependencies {
     def lottieVersion = "3.4.0"
     implementation "com.airbnb.android:lottie:$lottieVersion"
     implementation 'com.applovin:applovin-sdk:+'
+    implementation 'com.google.ads.mediation:facebook:6.15.0.0'
+    implementation 'com.applovin.mediation:facebook-adapter:+'
+
+
 }
