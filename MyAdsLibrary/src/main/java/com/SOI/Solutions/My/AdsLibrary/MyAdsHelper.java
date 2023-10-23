@@ -119,6 +119,7 @@ public class MyAdsHelper {
                     public void onAdLoaded() {
                         super.onAdLoaded();
                         Log.e(TAG, "banner ad: laoded success");
+                        shimmerlayout.setVisibility(View.GONE);
                         shimmerlayout.stopShimmer();
 
                     }
