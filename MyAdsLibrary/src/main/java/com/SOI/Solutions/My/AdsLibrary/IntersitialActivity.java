@@ -147,6 +147,7 @@ public class IntersitialActivity extends AppCompatActivity {
 //                }
                 //loadintersitalad(activity);
                 intent.onAdresponse();
+                finish();
             }
 
             @Override
@@ -161,6 +162,7 @@ public class IntersitialActivity extends AppCompatActivity {
 //                    startActivity(intent);
 //                }
                 intent.onAdresponse();
+                finish();
 
                 retryAttempt++;
                 long delayMillis = TimeUnit.SECONDS.toMillis( (long) Math.pow( 2, Math.min( 6, retryAttempt ) ) );
@@ -185,6 +187,7 @@ public class IntersitialActivity extends AppCompatActivity {
 //                if (intent!=null) {
 //                    startActivity(intent);
 //                }
+                finish();
                 intent.onAdresponse();
 
             }
