@@ -146,8 +146,8 @@ public class IntersitialActivity extends AppCompatActivity {
 //                    startActivity(intent);
 //                }
                 //loadintersitalad(activity);
-                intent.onAdresponse();
                 finish();
+                intent.onAdresponse();
             }
 
             @Override
