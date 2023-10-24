@@ -33,7 +33,7 @@
             android:layout_marginStart="10dp"
             android:fontFamily="sans-serif"
             android:textStyle="bold"
-            android:textSize="12dp"
+            android:textSize="16dp"
             android:textColor="@color/grey_dark"/>
 
     </LinearLayout>
