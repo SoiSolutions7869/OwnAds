@@ -1,5 +1,7 @@
 package com.SOI.Solutions.My.AdsLibrary;
 
-public interface AdmobInterface {
-    public void AdombDismissed();
+import java.io.Serializable;
+
+public interface AdmobInterface extends Serializable {
+    public void onAdresponse();
 }

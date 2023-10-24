@@ -20,8 +20,13 @@ public class MainActivity extends AppCompatActivity {
         helloworldtxt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent= new Intent(MainActivity.this,SecondActivity.class);
-                MyAdsHelper.showAdmobIntersiitaAd(MainActivity.this,null,getString(R.string.admob_intersitial));
+                MyAdsHelper.showAdmobIntersiitaAd(MainActivity.this, getString(R.string.admob_intersitial),
+                        new AdmobInterface() {
+                            @Override
+                            public void onAdresponse() {
+                                startActivity(new Intent(MainActivity.this,SecondActivity.class));
+                            }
+                        });
             }
         });
 

@@ -33,11 +33,13 @@ import com.applovin.sdk.AppLovinSdkConfiguration;
 import com.applovin.sdk.AppLovinSdkUtils;
 import com.facebook.ads.AudienceNetworkAds;
 import com.facebook.shimmer.ShimmerFrameLayout;
+import com.google.android.gms.ads.AdError;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdLoader;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.FullScreenContentCallback;
 import com.google.android.gms.ads.LoadAdError;
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.ads.initialization.InitializationStatus;
@@ -48,6 +50,7 @@ import com.google.android.gms.ads.nativead.MediaView;
 import com.google.android.gms.ads.nativead.NativeAd;
 import com.google.android.gms.ads.nativead.NativeAdView;
 
+import java.util.HashMap;
 import java.util.List;
 
 public class MyAdsHelper {
@@ -282,9 +285,6 @@ public class MyAdsHelper {
     }
 
     public static void loadAdmobInterstitialAd(Activity activity,String intersitial_id) {
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
 
                 AdRequest adRequest = new AdRequest.Builder().build();
 
@@ -305,22 +305,64 @@ public class MyAdsHelper {
                                 interstitialAd1 = null;
                             }
                         });
-            }
-        }, 1000);
+
     }
 
-    public static void showAdmobIntersiitaAd(Activity activity, Intent intent,String intersitial_id){
+    public static void showAdmobIntersiitaAd(Activity activity, String intersitial_id
+            , AdmobInterface admobInterface){
         if (interstitialAd1!=null){
+
+            HashMap<String, AdmobInterface> interfaceMap = new HashMap<>();
+            String interfaceId = "interface_key";
+            interfaceMap.put(interfaceId, admobInterface);
+
             activity.startActivity(new Intent(activity,IntersitialActivity.class)
-                    .putExtra("intent_data", intent)
-                    .putExtra("from", "admob"));
+                    .putExtra("interface_key",interfaceId)
+                    .putExtra("from","admob"));
+//            interstitialAd1.setFullScreenContentCallback(new FullScreenContentCallback() {
+//                @Override
+//                public void onAdClicked() {
+//                    super.onAdClicked();
+//                }
+//
+//                @Override
+//                public void onAdDismissedFullScreenContent() {
+//                    super.onAdDismissedFullScreenContent();
+//                    admobInterface.onAdresponse();
+//                    interstitialAd1=null;
+//                    if (reload) {
+//                        loadAdmobInterstitialAd(activity, intersitial_id);
+//                    }
+//                }
+//
+//                @Override
+//                public void onAdFailedToShowFullScreenContent(@NonNull AdError adError) {
+//                    super.onAdFailedToShowFullScreenContent(adError);
+//                    admobInterface.onAdresponse();
+//                    interstitialAd1=null;
+//                    if (reload) {
+//                        loadAdmobInterstitialAd(activity, intersitial_id);
+//                    }
+//                }
+//
+//                @Override
+//                public void onAdImpression() {
+//                    super.onAdImpression();
+//                }
+//
+//                @Override
+//                public void onAdShowedFullScreenContent() {
+//                    super.onAdShowedFullScreenContent();
+//                }
+//            });
+//
+//            interstitialAd1.show(activity);
         }
         else {
-            if (intent!=null) {
-                activity.startActivity(intent);
-            }
+            admobInterface.onAdresponse();
+           // admobInterface.onAdresponse();
             Log.e("Intersiital Ad showing","intersital ad null");
-            loadAdmobInterstitialAd(activity,intersitial_id);
+                loadAdmobInterstitialAd(activity, intersitial_id);
         }
 
     }
@@ -432,6 +474,7 @@ public class MyAdsHelper {
                     public void onAdLoaded(MaxAd maxAd) {
                         Log.e(TAG,"Banner ad onAdLoaded");
                         shimmerlayout.setVisibility(View.GONE);
+
                     }
 
                     @Override
@@ -546,22 +589,28 @@ public class MyAdsHelper {
 
     }
 
-    public static void showApplovinIntersiitaAd(Activity activity,String adunit, Intent intent){
+    public static void showApplovinIntersiitaAd(Activity activity,String adunit, AdmobInterface admobInterface){
         if (interstitialAd!=null){
 
             if (interstitialAd.isReady()) {
-                activity.startActivity(new Intent(activity, IntersitialActivity.class)
-                        .putExtra("intent_data", intent)
-                        .putExtra("from", "applovin"));
+
+                HashMap<String, AdmobInterface> interfaceMap = new HashMap<>();
+                String interfaceId = "interface_key";
+                interfaceMap.put(interfaceId, admobInterface);
+
+                activity.startActivity(new Intent(activity,IntersitialActivity.class)
+                        .putExtra("interface_key",interfaceId)
+                        .putExtra("from","applovin"));
+
             }
             else {
                 Log.e(TAG,"intersital ad not ready");
-                activity.startActivity(intent);
+                admobInterface.onAdresponse();
             }
         }
         else {
             loadApplovinintersitalad(activity,adunit);
-            activity.startActivity(intent);
+            admobInterface.onAdresponse();
             Log.e(TAG,"intersital ad null");
         }
 

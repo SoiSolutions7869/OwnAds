@@ -5,6 +5,7 @@ package com.SOI.Solutions.My.AdsLibrary;
 import static com.SOI.Solutions.My.AdsLibrary.MyAdsHelper.interstitialAd;
 import static com.SOI.Solutions.My.AdsLibrary.MyAdsHelper.interstitialAd1;
 import static com.SOI.Solutions.My.AdsLibrary.MyAdsHelper.retryAttempt;
+import java.util.HashMap;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -31,7 +32,7 @@ public class IntersitialActivity extends AppCompatActivity {
         // Retrieve the intent passed from Activity1
         Intent receivedIntent = getIntent();
         from=getIntent().getStringExtra("from");
-        if (receivedIntent != null) {
+       /* if (receivedIntent != null) {
             // Retrieve the Intent for Activity2
             Intent intentForActivity2 = receivedIntent.getParcelableExtra("intent_data");
 
@@ -50,15 +51,28 @@ public class IntersitialActivity extends AppCompatActivity {
                         finish();
                     }
                 },1000);
+            }*/
+        String interface_key = getIntent().getStringExtra("interface_key");
+        HashMap<String, AdmobInterface> interfaceMap = new HashMap<>();
+        AdmobInterface admobInterface = interfaceMap.get(interface_key);
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if (from.equals("admob")){
+                    showIntersiitalAd(admobInterface);
+                }
+                else {
+                    showApplovinIntersitalAd(admobInterface);
+                }
             }
-//            else {
-//                Toast.makeText(this, "Intent is null", Toast.LENGTH_SHORT).show();
-//            }
-   //     }
+        },1000);
+
+
     }
 
 
-    void showIntersiitalAd(Intent intent){
+    void showIntersiitalAd(AdmobInterface intent){
         interstitialAd1.setFullScreenContentCallback(new FullScreenContentCallback(){
             @Override
             public void onAdClicked() {
@@ -72,9 +86,12 @@ public class IntersitialActivity extends AppCompatActivity {
                 // Set the ad reference to null so you don't show the ad a second time.
                 Log.d(TAG, "Ad dismissed fullscreen content.");
                 interstitialAd1 = null;
-                if (intent!=null) {
-                    startActivity(intent);
-                }
+
+//                if (intent!=null) {
+//                    startActivity(intent);
+//                }
+                finish();
+                intent.onAdresponse();
             }
 
             @Override
@@ -82,9 +99,13 @@ public class IntersitialActivity extends AppCompatActivity {
                 // Called when ad fails to show.
                 Log.e(TAG, "Ad failed to show fullscreen content.");
                 interstitialAd1 = null;
-                if (intent!=null) {
-                    startActivity(intent);
-                }
+                finish();
+
+                intent.onAdresponse();
+
+//                if (intent!=null) {
+//                    startActivity(intent);
+//                }
             }
 
             @Override
@@ -104,7 +125,7 @@ public class IntersitialActivity extends AppCompatActivity {
 
     }
 
-    void showApplovinIntersitalAd(Intent intent){
+    void showApplovinIntersitalAd(AdmobInterface intent){
         interstitialAd.setListener(new MaxAdListener() {
             @Override
             public void onAdLoaded(MaxAd maxAd) {
@@ -121,10 +142,11 @@ public class IntersitialActivity extends AppCompatActivity {
             @Override
             public void onAdHidden(MaxAd maxAd) {
                 Log.e(TAG,"Intersitail ad on hidden");
-                if (intent!=null) {
-                    startActivity(intent);
-                }
+//                if (intent!=null) {
+//                    startActivity(intent);
+//                }
                 //loadintersitalad(activity);
+                intent.onAdresponse();
             }
 
             @Override
@@ -135,9 +157,11 @@ public class IntersitialActivity extends AppCompatActivity {
             @Override
             public void onAdLoadFailed(String s, MaxError maxError) {
                 // Interstitial ad failed to load. We recommend retrying with exponentially higher delays up to a maximum delay (in this case 64 seconds).
-                if (intent!=null) {
-                    startActivity(intent);
-                }
+//                if (intent!=null) {
+//                    startActivity(intent);
+//                }
+                intent.onAdresponse();
+
                 retryAttempt++;
                 long delayMillis = TimeUnit.SECONDS.toMillis( (long) Math.pow( 2, Math.min( 6, retryAttempt ) ) );
 
@@ -158,9 +182,11 @@ public class IntersitialActivity extends AppCompatActivity {
             public void onAdDisplayFailed(MaxAd maxAd, MaxError maxError) {
                 Log.e(TAG,"Intersitail ad display failed");
                 //loadintersitalad(activity);
-                if (intent!=null) {
-                    startActivity(intent);
-                }
+//                if (intent!=null) {
+//                    startActivity(intent);
+//                }
+                intent.onAdresponse();
+
             }
 
         });
