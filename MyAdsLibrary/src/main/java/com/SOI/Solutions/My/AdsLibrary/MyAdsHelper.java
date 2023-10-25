@@ -3,6 +3,7 @@ package com.SOI.Solutions.My.AdsLibrary;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Handler;
+import android.telecom.Call;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Display;
@@ -59,6 +60,7 @@ public class MyAdsHelper {
     public static NativeAd nativeAd1;
     public static InterstitialAd interstitialAd1;
     public static MaxInterstitialAd interstitialAd;
+    public static CallbackHelper callbackHelper;
     public static int retryAttempt;
     public static MaxNativeAdView nativeAdView;
     public static MaxAdView adView;
@@ -312,12 +314,9 @@ public class MyAdsHelper {
             , AdmobInterface admobInterface){
         if (interstitialAd1!=null){
 
-            HashMap<String, AdmobInterface> interfaceMap = new HashMap<>();
-            String interfaceId = "interface_key";
-            interfaceMap.put(interfaceId, admobInterface);
-
+            callbackHelper= new CallbackHelper();
+            callbackHelper.setAdmobInterface(admobInterface);
             activity.startActivity(new Intent(activity,IntersitialActivity.class)
-                    .putExtra("interface_key",interfaceId)
                     .putExtra("from","admob"));
 //            interstitialAd1.setFullScreenContentCallback(new FullScreenContentCallback() {
 //                @Override
@@ -594,12 +593,10 @@ public class MyAdsHelper {
 
             if (interstitialAd.isReady()) {
 
-                HashMap<String, AdmobInterface> interfaceMap = new HashMap<>();
-                String interfaceId = "interface_key";
-                interfaceMap.put(interfaceId, admobInterface);
+                callbackHelper= new CallbackHelper();
+                callbackHelper.setAdmobInterface(admobInterface);
 
                 activity.startActivity(new Intent(activity,IntersitialActivity.class)
-                        .putExtra("interface_key",interfaceId)
                         .putExtra("from","applovin"));
 
             }

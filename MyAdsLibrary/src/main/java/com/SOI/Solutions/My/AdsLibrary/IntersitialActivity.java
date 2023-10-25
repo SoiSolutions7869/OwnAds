@@ -30,7 +30,6 @@ public class IntersitialActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_intersitial);
         // Retrieve the intent passed from Activity1
-        Intent receivedIntent = getIntent();
         from=getIntent().getStringExtra("from");
        /* if (receivedIntent != null) {
             // Retrieve the Intent for Activity2
@@ -52,9 +51,7 @@ public class IntersitialActivity extends AppCompatActivity {
                     }
                 },1000);
             }*/
-        String interface_key = getIntent().getStringExtra("interface_key");
-        HashMap<String, AdmobInterface> interfaceMap = new HashMap<>();
-        AdmobInterface admobInterface = interfaceMap.get(interface_key);
+        AdmobInterface admobInterface = MyAdsHelper.callbackHelper.getAdmobInterface();
 
         new Handler().postDelayed(new Runnable() {
             @Override
