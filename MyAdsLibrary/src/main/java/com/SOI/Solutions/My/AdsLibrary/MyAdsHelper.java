@@ -69,6 +69,8 @@ public class MyAdsHelper {
     public static MaxNativeAdLoader nativeAdLoader;
 
     public static MaxAd nativeAd;
+    public static AppOpenAdManager appOpenAdManager;
+
     public static void iniSDkAdmob(Activity activity,String intersitai_id) {
 
         MobileAds.initialize(activity, new OnInitializationCompleteListener() {
@@ -163,8 +165,8 @@ public class MyAdsHelper {
         adView.setBodyView(adView.findViewById(R.id.ad_body));
         adView.setCallToActionView(adView.findViewById(R.id.ad_call_to_action));
         adView.setIconView(adView.findViewById(R.id.ad_app_icon));
-        adView.setPriceView(adView.findViewById(R.id.ad_price));
-        adView.setStarRatingView(adView.findViewById(R.id.ad_stars));
+       // adView.setPriceView(adView.findViewById(R.id.ad_price));
+      //  adView.setStarRatingView(adView.findViewById(R.id.ad_stars));
         adView.setStoreView(adView.findViewById(R.id.ad_store));
         adView.setAdvertiserView(adView.findViewById(R.id.ad_advertiser));
 
@@ -195,27 +197,27 @@ public class MyAdsHelper {
             adView.getIconView().setVisibility(View.VISIBLE);
         }
 
-        if (nativeAd.getPrice() == null) {
-            adView.getPriceView().setVisibility(View.INVISIBLE);
-        } else {
-            adView.getPriceView().setVisibility(View.VISIBLE);
-            ((TextView) adView.getPriceView()).setText(nativeAd.getPrice());
-        }
+//        if (nativeAd.getPrice() == null) {
+//            adView.getPriceView().setVisibility(View.INVISIBLE);
+//        } else {
+//            adView.getPriceView().setVisibility(View.VISIBLE);
+//            ((TextView) adView.getPriceView()).setText(nativeAd.getPrice());
+//        }
 
-        if (nativeAd.getStore() == null) {
-            adView.getStoreView().setVisibility(View.INVISIBLE);
-        } else {
-            adView.getStoreView().setVisibility(View.VISIBLE);
-            ((TextView) adView.getStoreView()).setText(nativeAd.getStore());
-        }
-
-        if (nativeAd.getStarRating() == null || nativeAd.getStarRating() < 3) {
-            adView.getStarRatingView().setVisibility(View.INVISIBLE);
-        } else {
-            ((RatingBar) adView.getStarRatingView())
-                    .setRating(nativeAd.getStarRating().floatValue());
-            adView.getStarRatingView().setVisibility(View.VISIBLE);
-        }
+//        if (nativeAd.getStore() == null) {
+//            adView.getStoreView().setVisibility(View.INVISIBLE);
+//        } else {
+//            adView.getStoreView().setVisibility(View.VISIBLE);
+//            ((TextView) adView.getStoreView()).setText(nativeAd.getStore());
+//        }
+//
+//        if (nativeAd.getStarRating() == null || nativeAd.getStarRating() < 3) {
+//            adView.getStarRatingView().setVisibility(View.INVISIBLE);
+//        } else {
+//            ((RatingBar) adView.getStarRatingView())
+//                    .setRating(nativeAd.getStarRating().floatValue());
+//            adView.getStarRatingView().setVisibility(View.VISIBLE);
+//        }
 
         if (nativeAd.getAdvertiser() == null) {
             adView.getAdvertiserView().setVisibility(View.INVISIBLE);
@@ -265,6 +267,43 @@ public class MyAdsHelper {
         }, 1000);
     }
 
+    public static void loadAndShowAdmobMediumNativeAd(Activity activity,String native_id) {
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                nativeshimmer=activity.findViewById(R.id.nativeshimmer);
+                AdLoader adLoader = new AdLoader.Builder(activity,
+                        native_id)
+                        .forNativeAd(new NativeAd.OnNativeAdLoadedListener() {
+                            @Override
+                            public void onNativeAdLoaded(@NonNull NativeAd
+                                                                 nativeAd) {
+                                nativeAd1 = nativeAd;
+                                Log.e(TAG, "native ad: laoded success");
+                                showMediumAdmobNativeAd(activity);
+                                nativeshimmer.stopShimmer();
+                                nativeshimmer.setVisibility(View.GONE);
+                            }
+                        })
+                        .withAdListener(new AdListener() {
+                            @Override
+                            public void onAdFailedToLoad(@NonNull LoadAdError
+                                                                 loadAdError) {
+                                Log.e(TAG, "native ad : loading failed " +
+                                        "" + loadAdError.toString());
+                                Log.e(TAG, "native ad: loading failed " + loadAdError.toString());
+                                Log.e(TAG, "native ad: loading failed " + loadAdError.getDomain());
+                                Log.e(TAG, "native ad: loading failed " + loadAdError.getResponseInfo());
+                                Log.e(TAG, "native ad: loading failed " + loadAdError.getCause());
+
+                            }
+                        }).build();
+                adLoader.loadAd(new AdRequest.Builder().build());
+            }
+        }, 1000);
+    }
+
     //... show native ad
     public static void showAdmobNativeAd(Activity activity) {
         if (nativeAd1 != null){
@@ -285,6 +324,27 @@ public class MyAdsHelper {
         }
 
     }
+
+    public static void showMediumAdmobNativeAd(Activity activity) {
+        if (nativeAd1 != null){
+            FrameLayout nativeContainer = activity.findViewById(R.id.nativecontainer);
+            NativeAdView nativeAdView = (NativeAdView) activity.getLayoutInflater()
+                    .inflate(R.layout.admob_native_medium, null);
+
+            populateNativeAdView(nativeAd1, nativeAdView);
+            nativeContainer.removeAllViews();
+            nativeContainer.addView(nativeAdView);
+            Log.e(TAG,"native ad: already loaded ,ad shown successfully "
+                    +activity.getLocalClassName());
+        }
+        else  {
+            // loadNativeAdAfterInternetConnected(activity, view);
+            Log.e(TAG, "native ad: connected to internet, loading native..., "
+                    +activity.getLocalClassName());
+        }
+
+    }
+
 
     public static void loadAdmobInterstitialAd(Activity activity,String intersitial_id) {
 
@@ -612,6 +672,18 @@ public class MyAdsHelper {
         }
 
     }
+
+    public static void loadAppOpenAd(@NonNull Activity activity) {
+        appOpenAdManager = new AppOpenAdManager();
+        appOpenAdManager.loadAd(activity);
+
+    }
+
+    public static void showAdIfAvailable(
+            @NonNull Activity activity, @NonNull AppOpenAdManager.OnShowAdCompleteListener onShowAdCompleteListener) {
+        appOpenAdManager.showAdIfAvailable(activity, onShowAdCompleteListener);
+    }
+
 
 
 }

@@ -1,12 +1,17 @@
 package com.SOI.Solutions.My.AdsLibrary;
 
+import static com.SOI.Solutions.My.AdsLibrary.MyAdsHelper.showAdIfAvailable;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
     TextView helloworldtxt;
@@ -33,5 +38,21 @@ public class MainActivity extends AppCompatActivity {
         MyAdsHelper.iniSDkAdmobWithFacebook(this, getResources().getString(R.string.admob_intersitial));
 
         MyAdsHelper.loadAdmobAdaptiveBannerAd(this, getResources().getString(R.string.admob_banner));
+        MyAdsHelper.loadAndShowAdmobMediumNativeAd(this, getResources().getString(R.string.admob_native));
+
+        MyAdsHelper.loadAppOpenAd(this);
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                showAdIfAvailable(MainActivity.this, new AppOpenAdManager.OnShowAdCompleteListener() {
+                    @Override
+                    public void onShowAdComplete() {
+                        Toast.makeText(MainActivity.this, "OnComplete", Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+        },2000);
+
     }
 }

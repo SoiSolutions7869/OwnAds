@@ -4,4 +4,12 @@
         <!-- Customize your dark theme here. -->
         <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
     </style>
+
+    <style name="AdTheme">
+        <item name="colorPrimary">#F1F1F1</item>
+        <item name="colorPrimaryDark">#F1F1F1</item>
+        <item name="android:background">#F1F1F1</item>
+        <item name="android:windowBackground">#F1F1F1</item>
+    </style>
+
 </resources>

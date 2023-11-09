@@ -4,6 +4,7 @@
 
     <uses-permission android:name="android.permission.INTERNET"/>
     <application
+        android:name=".MyLibraryApp"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -32,6 +33,12 @@
         <meta-data
             android:name="applovin.sdk.key"
             android:value="uxVPpX_zhuv7utrPs0goKJ7dcek3soEV9OzxbxdEzOzxD-9lTC6tuTvfCWVZs2WIEQl0m1AXS3B-H7XwxC6Oa2" />
+
+        <activity
+            android:name="com.google.android.gms.ads.AdActivity"
+            android:theme="@style/AdsAppTheme.AppOpenAdTheme"
+            tools:replace="android:theme" />
+
     </application>
 
 </manifest>

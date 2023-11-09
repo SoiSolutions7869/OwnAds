@@ -5,5 +5,16 @@
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
     </style>
 
-    <style name="Theme.MyAdsLIbrary" parent="Base.Theme.MyAdsLIbrary" />
+    <style name="Theme.MyAdsLIbrary" parent="Base.Theme.MyAdsLIbrary" >
+
+    </style>
+
+    <style name="Theme.MyAdTheme" parent="Base.Theme.MyAdsLIbrary" >
+        <item name="colorPrimary">#F1F1F1</item>
+        <item name="colorPrimaryDark">#F1F1F1</item>
+        <item name="android:background">#F1F1F1</item>
+        <item name="android:windowBackground">#F1F1F1</item>
+    </style>
+
+
 </resources>
