@@ -673,15 +673,15 @@ public class MyAdsHelper {
 
     }
 
-    public static void loadAppOpenAd(@NonNull Activity activity) {
+    public static void loadAppOpenAd(@NonNull Activity activity,String appopenId) {
         appOpenAdManager = new AppOpenAdManager();
-        appOpenAdManager.loadAd(activity);
+        appOpenAdManager.loadAd(activity,appopenId);
 
     }
 
     public static void showAdIfAvailable(
-            @NonNull Activity activity, @NonNull AppOpenAdManager.OnShowAdCompleteListener onShowAdCompleteListener) {
-        appOpenAdManager.showAdIfAvailable(activity, onShowAdCompleteListener);
+            @NonNull Activity activity, @NonNull AppOpenAdManager.OnShowAdCompleteListener onShowAdCompleteListener,String appopenId) {
+        appOpenAdManager.showAdIfAvailable(activity, onShowAdCompleteListener,appopenId);
     }
 
 

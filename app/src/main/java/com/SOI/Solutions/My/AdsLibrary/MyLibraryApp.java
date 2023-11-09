@@ -43,7 +43,7 @@ public class MyLibraryApp extends Application
     public void onStart(@NonNull LifecycleOwner owner) {
         DefaultLifecycleObserver.super.onStart(owner);
         // Show the ad (if available) when the app moves to foreground.
-        appOpenAdManager.showAdIfAvailable(currentActivity);
+        appOpenAdManager.showAdIfAvailable(currentActivity,"ca-app-pub-3940256099942544/3419835294");
     }
 
     @Override

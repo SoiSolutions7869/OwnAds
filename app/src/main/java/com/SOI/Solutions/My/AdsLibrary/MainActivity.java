@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
         MyAdsHelper.loadAdmobAdaptiveBannerAd(this, getResources().getString(R.string.admob_banner));
         MyAdsHelper.loadAndShowAdmobMediumNativeAd(this, getResources().getString(R.string.admob_native));
 
-        MyAdsHelper.loadAppOpenAd(this);
+        MyAdsHelper.loadAppOpenAd(this,"ca-app-pub-3940256099942544/3419835294");
 
         new Handler().postDelayed(new Runnable() {
             @Override
@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
                     public void onShowAdComplete() {
                         Toast.makeText(MainActivity.this, "OnComplete", Toast.LENGTH_SHORT).show();
                     }
-                });
+                }, "ca-app-pub-3940256099942544/3419835294");
             }
         },2000);
 

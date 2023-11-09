@@ -17,7 +17,7 @@ import java.util.Date;
 public class AppOpenAdManager {
 
     private static final String LOG_TAG = "AppOpenAdManager";
-    private static final String AD_UNIT_ID = "ca-app-pub-3940256099942544/3419835294";
+ //   private static final String AD_UNIT_ID = "ca-app-pub-3940256099942544/3419835294";
 
     private AppOpenAd appOpenAd = null;
     private boolean isLoadingAd = false;
@@ -36,7 +36,7 @@ public class AppOpenAdManager {
      *
      * @param context the context of the activity that loads the ad
      */
-    public void loadAd(Context context) {
+    public void loadAd(Context context,String app_open_id) {
         // Do not load ad if there is an unused ad or one is already loading.
         if (isLoadingAd || isAdAvailable()) {
             return;
@@ -46,7 +46,7 @@ public class AppOpenAdManager {
         AdRequest request = new AdRequest.Builder().build();
         AppOpenAd.load(
                 context,
-                AD_UNIT_ID,
+                app_open_id,
                 request,
                 new AppOpenAd.AppOpenAdLoadCallback() {
                     /**
@@ -100,7 +100,7 @@ public class AppOpenAdManager {
      *
      * @param activity the activity that shows the app open ad
      */
-    public void showAdIfAvailable(@NonNull final Activity activity) {
+    public void showAdIfAvailable(@NonNull final Activity activity,String appopenId) {
         showAdIfAvailable(
                 activity,
                 new OnShowAdCompleteListener() {
@@ -108,7 +108,7 @@ public class AppOpenAdManager {
                     public void onShowAdComplete() {
                         // Empty because the user will go back to the activity that shows the ad.
                     }
-                });
+                },appopenId);
     }
 
     /**
@@ -119,7 +119,7 @@ public class AppOpenAdManager {
      */
     public void showAdIfAvailable(
             @NonNull final Activity activity,
-            @NonNull OnShowAdCompleteListener onShowAdCompleteListener) {
+            @NonNull OnShowAdCompleteListener onShowAdCompleteListener,String appopenId) {
         // If the app open ad is already showing, do not show the ad again.
         if (isShowingAd) {
             Log.d(LOG_TAG, "The app open ad is already showing.");
@@ -134,7 +134,7 @@ public class AppOpenAdManager {
 //        }
 //        return;
 //        }
-            loadAd(activity);
+            loadAd(activity,appopenId);
 
 
 
@@ -156,7 +156,7 @@ public class AppOpenAdManager {
                             onShowAdCompleteListener.onShowAdComplete();
 //        if (googleMobileAdsConsentManager.canRequestAds()) {
 //        }
-                            loadAd(activity);
+                            loadAd(activity,appopenId);
 
                         }
 
@@ -171,7 +171,7 @@ public class AppOpenAdManager {
                             onShowAdCompleteListener.onShowAdComplete();
 //        if (googleMobileAdsConsentManager.canRequestAds()) {
 //        }
-                            loadAd(activity);
+                            loadAd(activity,appopenId);
 
                         }
 
