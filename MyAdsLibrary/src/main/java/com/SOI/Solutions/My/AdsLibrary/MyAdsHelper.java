@@ -121,6 +121,7 @@ public class MyAdsHelper {
                         Log.e(TAG, "banner ad: loading failed " + loadAdError.getCause());
 
                     }
+                    FrameLayout.LayoutParams adLayoutParams = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT);
 
                     @Override
                     public void onAdLoaded() {
@@ -128,7 +129,7 @@ public class MyAdsHelper {
                         Log.e(TAG, "banner ad: laoded success");
                         shimmerlayout.setVisibility(View.GONE);
                         shimmerlayout.stopShimmer();
-
+                        adView.setLayoutParams(adLayoutParams);
                     }
                 });
                 AdSize adSize = getAdSize(activity);

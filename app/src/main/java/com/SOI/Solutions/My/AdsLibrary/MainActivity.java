@@ -48,7 +48,6 @@ public class MainActivity extends AppCompatActivity {
                 showAdIfAvailable(MainActivity.this, new AppOpenAdManager.OnShowAdCompleteListener() {
                     @Override
                     public void onShowAdComplete() {
-                        Toast.makeText(MainActivity.this, "OnComplete", Toast.LENGTH_SHORT).show();
                     }
                 }, "ca-app-pub-3940256099942544/3419835294");
             }
