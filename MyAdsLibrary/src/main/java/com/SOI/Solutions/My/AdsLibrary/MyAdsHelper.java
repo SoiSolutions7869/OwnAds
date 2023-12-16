@@ -379,48 +379,9 @@ public class MyAdsHelper {
             callbackHelper.setAdmobInterface(admobInterface);
             activity.startActivity(new Intent(activity,IntersitialActivity.class)
                     .putExtra("from","admob"));
-//            interstitialAd1.setFullScreenContentCallback(new FullScreenContentCallback() {
-//                @Override
-//                public void onAdClicked() {
-//                    super.onAdClicked();
-//                }
-//
-//                @Override
-//                public void onAdDismissedFullScreenContent() {
-//                    super.onAdDismissedFullScreenContent();
-//                    admobInterface.onAdresponse();
-//                    interstitialAd1=null;
-//                    if (reload) {
-//                        loadAdmobInterstitialAd(activity, intersitial_id);
-//                    }
-//                }
-//
-//                @Override
-//                public void onAdFailedToShowFullScreenContent(@NonNull AdError adError) {
-//                    super.onAdFailedToShowFullScreenContent(adError);
-//                    admobInterface.onAdresponse();
-//                    interstitialAd1=null;
-//                    if (reload) {
-//                        loadAdmobInterstitialAd(activity, intersitial_id);
-//                    }
-//                }
-//
-//                @Override
-//                public void onAdImpression() {
-//                    super.onAdImpression();
-//                }
-//
-//                @Override
-//                public void onAdShowedFullScreenContent() {
-//                    super.onAdShowedFullScreenContent();
-//                }
-//            });
-//
-//            interstitialAd1.show(activity);
         }
         else {
             admobInterface.onAdresponse();
-           // admobInterface.onAdresponse();
             Log.e("Intersiital Ad showing","intersital ad null");
                 loadAdmobInterstitialAd(activity, intersitial_id);
         }

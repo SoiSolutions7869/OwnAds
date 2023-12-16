@@ -9,12 +9,17 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.SOI.Solutions.My.AdsLibrary.CDR.ConsentManager;
+import com.google.android.ump.FormError;
+
 public class MainActivity extends AppCompatActivity {
     TextView helloworldtxt;
+    ConsentManager consentManager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,21 +40,34 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        MyAdsHelper.iniSDkAdmobWithFacebook(this, getResources().getString(R.string.admob_intersitial));
 
-        MyAdsHelper.loadAdmobAdaptiveBannerAd(this, getResources().getString(R.string.admob_banner));
-        MyAdsHelper.loadAndShowAdmobMediumNativeAd(this, getResources().getString(R.string.admob_native));
+        consentManager=ConsentManager.getInstance(this);
+        consentManager.gatherConsent(this, "071A55712EDF0B764C0BAE62164EF2C2", new ConsentManager.OnConsentGatheringCompleteListener() {
+            @Override
+            public void consentGatheringComplete(FormError error) {
+                if (error!=null) {
+                    Log.d("consent", "consentGatheringComplete: Consent null");
+                    return;
+                }
+                MyAdsHelper.iniSDkAdmobWithFacebook(MainActivity.this, getResources().getString(R.string.admob_intersitial));
 
-        MyAdsHelper.loadAppOpenAd(this,"ca-app-pub-3940256099942544/3419835294");
+                MyAdsHelper.loadAdmobAdaptiveBannerAd(MainActivity.this, getResources().getString(R.string.admob_banner));
+                MyAdsHelper.loadAndShowAdmobMediumNativeAd(MainActivity.this, getResources().getString(R.string.admob_native));
+
+                MyAdsHelper.loadAppOpenAd(MainActivity.this,"ca-app-pub-3940256099942544/3419835294");
+
+            }
+        });
+
 
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                showAdIfAvailable(MainActivity.this, new AppOpenAdManager.OnShowAdCompleteListener() {
-                    @Override
-                    public void onShowAdComplete() {
-                    }
-                }, "ca-app-pub-3940256099942544/3419835294");
+//                showAdIfAvailable(MainActivity.this, new AppOpenAdManager.OnShowAdCompleteListener() {
+//                    @Override
+//                    public void onShowAdComplete() {
+//                    }
+//                }, "ca-app-pub-3940256099942544/3419835294");
             }
         },2000);
 
